@@ -57,43 +57,31 @@ abstract class page {
 class homepage extends page {
   
   public function get() {
-     $form = '<form action="index.php" method="post" enctype="multipart/form-data">';
-     $form .= '<h1> csv upload </h1> <br>';
-     $form .= '<input type="file" name="chooseFile" id="chooseFile">';
-     $form .= '<input type="submit" value="submit">';
-     $form .= '</form> ';
-     $this->html .= $form;
+   $form = '<form action="index.php" method="post" enctype="multipart/form-data">';
+   $form .= '<h1> csv upload </h1> <br>';
+   $form .= '<input type="file" name="chooseFile" id="chooseFile">';
+   $form .= '<input type="submit" value="submit">';
+   $form .= '</form> ';
+   $this->html .= $form;
  }
 
-/*class uploadform extends page {
-
- public function get()
- {
-    $form = '<form action="index.php?page=uploadform" method="post" enctype="multipart/form-data">';
-    $form .= '<input type="file" name="chooseFile" id="chooseFile">';
-    $form .= '<input type="submit" value="Upload Image" name="submit">';
-    $form .= '</form> ';
-    $this->html .= '<h1>Upload Form</h1>';
-    $this->html .= $form;
- }*/
-
- public function post() {
-  $targetDir = "uploads/";
-  print_r($_FILES);
-  $targetFile = $targetDir . $_FILES["chooseFile"]["name"];
-  $source = pathinfo($targetFile,PATHINFO_EXTENSION);
-  if(isset($_POST["submit"])) {
-   $fileName = $_FILES["chooseFile"]["temp_name"];
-   move_uploaded_file($fileName,$targetFile);
-   echo 'file uploaded';
+  public function post() {
+   $targetDir = "uploads/";
+   print_r($_FILES);
+   $targetFile = $targetDir . $_FILES["chooseFile"]["name"];
+   $source = pathinfo($targetFile,PATHINFO_EXTENSION);
+ 
+     $fileName = $_FILES["chooseFile"]["tmp_name"];
+     move_uploaded_file($fileName,$targetFile);
+     echo '<br>file uploaded';
+  
   }
- }
 
 }
 
 class stringFunctions {
  static public function printThis($text) {
-    print($text);
+   print($text);
  }
 }
 
