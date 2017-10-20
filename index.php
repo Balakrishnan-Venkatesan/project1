@@ -70,11 +70,11 @@ class homepage extends page {
    print_r($_FILES);
    $targetFile = $targetDir . $_FILES["chooseFile"]["name"];
    $source = pathinfo($targetFile,PATHINFO_EXTENSION);
- 
+   
      $fileName = $_FILES["chooseFile"]["tmp_name"];
      move_uploaded_file($fileName,$targetFile);
      echo '<br>file uploaded';
-  
+   
   }
 
 }
@@ -87,4 +87,4 @@ class stringFunctions {
 
 class htmlTable extends page {}
 
-?>			   
+?>
