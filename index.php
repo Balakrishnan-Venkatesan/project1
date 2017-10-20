@@ -66,17 +66,25 @@ class homepage extends page {
  }
 
   public function post() {
-   $targetDir = "uploads/";
-   print_r($_FILES);
-   $targetFile = $targetDir . $_FILES["chooseFile"]["name"];
-   $source = pathinfo($targetFile,PATHINFO_EXTENSION);
-   
-     $fileName = $_FILES["chooseFile"]["tmp_name"];
-     move_uploaded_file($fileName,$targetFile);
-     echo '<br>file uploaded';
-   
+  // if(isset($_POST["submit"])) {
+     $fileName = $_FILES["chooseFile"]["name"];
+     $tmpFileName = $_FILES["chooseFile"]["tmp_name"];
+     $fileName =  upload::csvUpload($fileName,$tmpFileName);
+     header('Location:?page=table&fileName='. $fileName);
+  // }
   }
 
+}
+
+class upload {
+  public static function csvUpload($fileName,$tmpFileName) {
+     $targetDir = "uploads/";
+     $targetFile = $targetDir . $fileName;
+     $source = pathinfo($targetFile,PATHINFO_EXTENSION);
+     $fileName = $tmpFileName;
+     move_uploaded_file($fileName,$targetFile);
+     return $targetFile;
+  }
 }
 
 class stringFunctions {
@@ -85,6 +93,5 @@ class stringFunctions {
  }
 }
 
-class htmlTable extends page {}
 
 ?>
