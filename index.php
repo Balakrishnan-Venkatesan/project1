@@ -29,12 +29,11 @@ class main {
      } else {
       $page->post();
      }
- }
+  }
 } 
 
 abstract class page {
     protected $html;
-
     public function __construct()
     {
       $this->html .= '<html>';
@@ -72,7 +71,7 @@ class homepage extends page {
           $fileName =  upload::csvUpload($fileName,$tmpFileName);
           header('Location:?page=htmlTable&fileName='. $fileName);
       // }
-      }
+    }
 
   }
 
@@ -85,33 +84,30 @@ class htmlTable extends page {
       $table = '<table border="2">';
      while(($data = fgetcsv($handle))!=FALSE) {
          if ($heading == 1) {
-          $table .= '<thead><tr>';
-         foreach ($data as $value) {
-          if(!isset($value))
-	       $value = "&nbsp";
-          else
-           $table .= "<th>". $value ."</th>";
-         }
-     $table .=  '</tr></thead><tbody>';
-        }
-        else {
-          $table .= '<tr>';
-	  foreach ($data as $value) {
-          if(!isset($value))
-          $value = "&nbsp";
-          else
-          $table .=  "<td>". $value . "</td>";
+           $table .= '<thead><tr>';
+          foreach ($data as $value) {
+             if(!isset($value))
+	         $value = "&nbsp";
+            else
+             $table .= "<th>". $value ."</th>";
           }
-	  $table .= '</tr>';
-       }
-    $heading++; 
-       
-    }
-     
-     $table .= '</tbody></table>';
-     $this->html .= $table;
-     fclose($handle);
-     //stringFunctions::printThis($this->html);
+           $table .=  '</tr></thead><tbody>';
+         }
+         else {
+           $table .= '<tr>';
+	       foreach ($data as $value) {
+             if(!isset($value))
+              $value = "&nbsp";
+             else
+             $table .=  "<td>". $value . "</td>";
+           }
+           $table .= '</tr>';
+         }
+         $heading++;
+     }
+      $table .= '</tbody></table>';
+      $this->html .= $table;
+      fclose($handle);
     }
 }
 
