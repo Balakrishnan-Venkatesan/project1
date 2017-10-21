@@ -57,38 +57,38 @@ abstract class page {
 class homepage extends page {
   
   public function get() {
-   $form = '<form action="index.php" method="post" enctype="multipart/form-data">';
-   $form .= '<h1> csv upload </h1> <br>';
-   $form .= '<input type="file" name="chooseFile" id="chooseFile">';
-   $form .= '<input type="submit" value="submit">';
-   $form .= '</form> ';
-   $this->html .= $form;
- }
-
-  public function post() {
-  // if(isset($_POST["submit"])) {
-     $fileName = $_FILES["chooseFile"]["name"];
-     $tmpFileName = $_FILES["chooseFile"]["tmp_name"];
-     $fileName =  upload::csvUpload($fileName,$tmpFileName);
-     header('Location:?page=htmlTable&fileName='. $fileName);
-  // }
+    $form = '<form action="index.php" method="post" enctype="multipart/form-data">';
+    $form .= '<h1> csv upload </h1> <br>';
+    $form .= '<input type="file" name="chooseFile" id="chooseFile">';
+    $form .= '<input type="submit" value="submit">';
+    $form .= '</form> ';
+    $this->html .= $form;
   }
 
-}
+  public function post() {
+      //if(isset($_POST["submit"])) {
+          $fileName = $_FILES["chooseFile"]["name"];
+          $tmpFileName = $_FILES["chooseFile"]["tmp_name"];
+          $fileName =  upload::csvUpload($fileName,$tmpFileName);
+          header('Location:?page=htmlTable&fileName='. $fileName);
+      // }
+      }
+
+  }
 
 class htmlTable extends page {
-   public function get() {
-     $fileName = $_GET['fileName'];
-     echo trim($fileName, "uploads/"). " was uploaded <br><br> The table is listed below, <br><br>";
-     $heading = 1;
-     $handle = fopen($fileName,"r");
-     $table = '<table border="2">';
+    public function get() {
+      $fileName = $_GET['fileName'];
+      echo trim($fileName, "uploads/"). " was uploaded <br><br> The table is listed below, <br><br>";
+      $heading = 1;
+      $handle = fopen($fileName,"r");
+      $table = '<table border="2">';
      while(($data = fgetcsv($handle))!=FALSE) {
-        if ($heading == 1) {
-         $table .= '<thead><tr>';
+         if ($heading == 1) {
+          $table .= '<thead><tr>';
          foreach ($data as $value) {
           if(!isset($value))
-	   $value = "&nbsp";
+	       $value = "&nbsp";
           else
            $table .= "<th>". $value ."</th>";
          }
