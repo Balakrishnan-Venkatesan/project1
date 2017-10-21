@@ -79,7 +79,7 @@ class homepage extends page {
 class htmlTable extends page {
    public function get() {
      $fileName = $_GET['fileName'];
-     echo trim($fileName, "uploads/"). " was uploaded <br> The table is listed below, <br><br>";
+     echo trim($fileName, "uploads/"). " was uploaded <br><br> The table is listed below, <br><br>";
      $heading = 1;
      $handle = fopen($fileName,"r");
      $table = '<table border="2">';
