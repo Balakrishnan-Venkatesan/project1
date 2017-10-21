@@ -12,7 +12,6 @@ class Manage {
 spl_autoload_register(array('Manage', 'autoload'));
 $obj = new main();
 
-
 class main {
 
  public function __construct()
@@ -82,15 +81,15 @@ class htmlTable extends page {
       $heading = 1;
       $handle = fopen($fileName,"r");
       $table = '<table border="2">';
-     while(($data = fgetcsv($handle))!=FALSE) {
+      while(($data = fgetcsv($handle))!=FALSE) {
          if ($heading == 1) {
            $table .= '<thead><tr>';
-          foreach ($data as $value) {
+           foreach ($data as $value) {
              if(!isset($value))
 	         $value = "&nbsp";
             else
              $table .= "<th>". $value ."</th>";
-          }
+           }
            $table .=  '</tr></thead><tbody>';
          }
          else {
@@ -104,7 +103,7 @@ class htmlTable extends page {
            $table .= '</tr>';
          }
          $heading++;
-     }
+      }
       $table .= '</tbody></table>';
       $this->html .= $table;
       fclose($handle);
@@ -127,6 +126,5 @@ class stringFunctions {
    print($text);
  }
 }
-
 
 ?>
