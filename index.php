@@ -14,17 +14,9 @@ $obj = new main();
 
   class main {
       public function __construct() {
-          $pageRequest = 'homepage';
-          if(isset($_REQUEST['page'])) {
-              $pageRequest = $_REQUEST['page'];
-          }
-          $page = new $pageRequest;
-          if($_SERVER['REQUEST_METHOD'] == 'GET') {
-              $page->get();
-          }
-          else {
-              $page->post();
-          }
+          $loadPage = webpagecontrol::pageLoader();
+          $page = new $loadPage;
+          webpagecontrol::methodLoader($page);
       }
   }
 
@@ -101,6 +93,25 @@ $obj = new main();
       }
   }
 
+  class webpagecontrol {
+      public static function pageLoader() {
+          if(isset($_REQUEST['page'])) {
+              return $_REQUEST['page'];
+          }
+          else {
+              $loadPage = 'homepage';
+              return $loadPage;
+          }
+      }
+      public static function methodLoader($page) {
+          if($_SERVER['REQUEST_METHOD'] == 'GET') {
+              $page->get();
+          }
+          else {
+              $page->post();
+          }
+      }
+  }
   class upload {
       public static function csvUpload($fileName,$tmpFileName) {
           $targetDir = "uploads/";
