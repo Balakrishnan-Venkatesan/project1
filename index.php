@@ -103,7 +103,7 @@ $obj = new main();
               return $loadPage;
           }
       }
-      public static function methodLoader($page) {
+      public static function methodLoader() {
           if($_SERVER['REQUEST_METHOD'] == 'GET') {
               $page->get();
           }
